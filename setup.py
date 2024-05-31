@@ -13,7 +13,7 @@ setup(
             ".fib-py-with-rs.tiruka_fib_rs", path="Cargo.toml", binding=Binding.PyO3
         )
     ],
-    packages=["tiruka_fib_rs"],
+    packages=["fib-py-with-rs"],
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Development Status :: 3 - Alpha",
