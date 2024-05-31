@@ -3,7 +3,7 @@ use pyo3::wrap_pyfunction;
 
 #[pyfunction]
 fn say_hello() {
-    println!("Hello, World!from Rust");
+    println!("saying hello from Rust!");
 }
 
 #[pymodule]

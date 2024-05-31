@@ -12,7 +12,7 @@ setup(
     version="0.1",
     rust_extensions=[
         RustExtension(
-            ".tiruka_fib_rs.tiruka_fib_rs", path="Cargo.toml", binding=Binding.PyO3
+            ".fib-py-with-rs.tiruka_fib_rs", path="Cargo.toml", binding=Binding.PyO3
         )
     ],
     packages=["tiruka_fib_rs"],
