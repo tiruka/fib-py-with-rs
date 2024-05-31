@@ -2,7 +2,6 @@
 from setuptools import dist
 
 dist.Distribution().fetch_build_eggs(["setuptools_rust"])
-
 from setuptools import setup  # noqa: E402
 from setuptools_rust import RustExtension, Binding  # type: ignore # noqa: E402
 

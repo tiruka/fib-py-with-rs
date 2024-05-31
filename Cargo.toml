@@ -8,9 +8,9 @@ authors = ["Tiruka"]
 
 [dependencies]
 [dependencies.pyo3]
-version = "0.13.2"
+version = "0.21.2"
 features = ["extension-module"]
 
 [lib]
 name = "tiruka_fib_rs"
-crate-type = ["cdylib"]
+crate-type = ["rlib", "cdylib"]
