@@ -1,5 +1,5 @@
 import argparse
-from .tiruka_fib_rs import fib_number
+from .tiruka_fib_rs import fibonacci_number
 
 
 def fib_number_command() -> None:
@@ -15,4 +15,4 @@ def fib_number_command() -> None:
         help="Fibonacci number to calculate",
     )
     args = parser.parse_args()
-    print(fib_number(args.number))
+    print(fibonacci_number(args.number))

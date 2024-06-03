@@ -27,7 +27,7 @@ setup(
     zip_safe=False,
     entry_points={
         "console_scripts": [
-            "fib_number = tiruka_fib_rs.fib_number_command:fib_number_command"
+            "fib-number = tiruka_fib_rs.fib_number_command:fib_number_command"
         ]
     },
 )
