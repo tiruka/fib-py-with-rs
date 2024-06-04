@@ -1,13 +1,14 @@
+from typing import Optional, Union
 from .tiruka_fib_rs import fibonacci_number, fibonacci_numbers
 from .counter import Counter
 
 
 class TirukaFibNumberAdapter:
-    def __init__(self, number_input: int | list[int]) -> None:
+    def __init__(self, number_input: Union[int, list[int]]) -> None:
         self.input = number_input
         self.success: bool = False
-        self.result: None | int | list[int] = None
-        self.error_message: None | str = None
+        self.result: Optional[Union[int, list[int]]] = None
+        self.error_message: Optional[str] = None
         self._counter: Counter = Counter()
         self._process_input()
 
