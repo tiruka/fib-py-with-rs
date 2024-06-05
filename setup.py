@@ -31,5 +31,5 @@ setup(
             "config-fib = tiruka_fib_rs.config_number_command:config_number_command",
         ]
     },
-    requires=["pyyaml>=3.13"],
+    requires=["pyaml>=3.13"],
 )
