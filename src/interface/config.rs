@@ -31,5 +31,23 @@ pub fn run_config<'a>(config: &'a PyDict) -> PyResult<&'a PyDict> {
         },
         None => println!("Parameter number is not in the config"),
     }
+    match config.get_item("numbers").unwrap() {
+        Some(data) => match data.downcast::<PyList>() {
+            Ok(raw_data) => {
+                let processed_results: Vec<Vec<i32>> = raw_data.extract::<Vec<Vec<i32>>>().unwrap();
+
+                let fib_numbers: Vec<Vec<u64>> = processed_results
+                    .into_iter()
+                    .map(|x| fibonacci_numbers(x))
+                    .collect();
+                let _ = config.set_item("Numbers Result", fib_numbers);
+            }
+            Err(_) => Err(PyTypeError::new_err(
+                "paramber numbers is not a list of intergers",
+            ))
+            .unwrap(),
+        },
+        None => println!("Parameter numbers is not in the config"),
+    }
     Ok(config)
 }
