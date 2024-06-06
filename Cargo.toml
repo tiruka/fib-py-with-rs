@@ -8,7 +8,7 @@ authors = ["Tiruka"]
 
 [dependencies]
 [dependencies.pyo3]
-version = "0.21.2"
+version = "0.13.2"
 features = ["extension-module"]
 
 [lib]

@@ -11,10 +11,9 @@ fn process_numbers(input_numbers: Vec<Vec<i32>>) -> Vec<Vec<u64>> {
         .map(|x| fibonacci_numbers(x))
         .collect()
 }
-
 #[pyfunction]
 pub fn run_config<'a>(config: &'a PyDict) -> PyResult<&'a PyDict> {
-    match config.get_item("number").unwrap() {
+    match config.get_item("number") {
         Some(data) => match data.downcast::<PyList>() {
             Ok(raw_data) => {
                 let processed_results: Vec<i32> = raw_data.extract::<Vec<i32>>().unwrap();
@@ -22,32 +21,29 @@ pub fn run_config<'a>(config: &'a PyDict) -> PyResult<&'a PyDict> {
                     .iter()
                     .map(|x| fibonacci_number(*x))
                     .collect();
-                let _ = config.set_item("Number Result", fib_numbers);
+                config.set_item("NUMBER RESULT", fib_numbers);
             }
             Err(_) => Err(PyTypeError::new_err(
-                "paramber number is not a list of intergers",
+                "parameter number is not a list of integers",
             ))
             .unwrap(),
         },
-        None => println!("Parameter number is not in the config"),
+        None => println!("parameter number is not in the config"),
     }
-    match config.get_item("numbers").unwrap() {
+
+    match config.get_item("numbers") {
         Some(data) => match data.downcast::<PyList>() {
             Ok(raw_data) => {
-                let processed_results: Vec<Vec<i32>> = raw_data.extract::<Vec<Vec<i32>>>().unwrap();
-
-                let fib_numbers: Vec<Vec<u64>> = processed_results
-                    .into_iter()
-                    .map(|x| fibonacci_numbers(x))
-                    .collect();
-                let _ = config.set_item("Numbers Result", fib_numbers);
+                let processed_results_two: Vec<Vec<i32>> =
+                    raw_data.extract::<Vec<Vec<i32>>>().unwrap();
+                config.set_item("NUMBERS RESULT", process_numbers(processed_results_two));
             }
             Err(_) => Err(PyTypeError::new_err(
-                "paramber numbers is not a list of intergers",
+                "parameter numbers is not a list of lists of integers",
             ))
             .unwrap(),
         },
-        None => println!("Parameter numbers is not in the config"),
+        None => println!("parameter numbers is not in the config"),
     }
-    Ok(config)
+    return Ok(config);
 }
