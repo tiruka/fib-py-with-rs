@@ -1,4 +1,5 @@
 use pyo3::prelude::*;
+use pyo3::types::PyDict;
 use pyo3::wrap_pyfunction;
 mod class_module;
 mod fib_calcs;
@@ -17,9 +18,31 @@ fn say_hello() {
     println!("saying hello from Rust!");
 }
 
+#[pyfunction]
+fn test_numpy(result_dict: &PyDict) -> PyResult<&PyDict> {
+    let gil = Python::acquire_gil();
+    let py = gil.python();
+    let locals = PyDict::new(py);
+    locals.set_item("np", py.import("numpy").unwrap());
+    let code = "np.array([[3, 2], [1, 4]])";
+    let weights_matrix = py.eval(code, None, Some(locals)).unwrap();
+    locals.set_item("weight_matrix", weights_matrix);
+
+    let new_code = "np.array([[10], [20]])";
+    let input_matrix = py.eval(new_code, None, Some(locals)).unwrap();
+    locals.set_item("input_matrix", input_matrix);
+
+    let calc_code = "np.dot(weight_matrix, input_matrix)";
+    let result_end = py.eval(calc_code, None, Some(locals)).unwrap();
+    result_dict.set_item("numpy_result", result_end);
+
+    Ok(result_dict)
+}
+
 #[pymodule]
 fn tiruka_fib_rs(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_wrapped(wrap_pyfunction!(say_hello));
+    m.add_wrapped(wrap_pyfunction!(test_numpy));
     m.add_wrapped(wrap_pyfunction!(fibonacci_number));
     m.add_wrapped(wrap_pyfunction!(fibonacci_numbers));
     m.add_wrapped(wrap_pyfunction!(run_config));
