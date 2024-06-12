@@ -9,9 +9,9 @@ fn get_weight_matrix(py: &Python, locals: &PyDict) {
 
 fn invert_get_weight_matrix(py: &Python, locals: &PyDict) {
     let code = "np.linalg.inv(weights_matrix)";
-    let inverted_weight_matrix = py.eval(code, None, Some(&locals)).unwrap();
+    let inverted_weights_matrix = py.eval(code, None, Some(&locals)).unwrap();
     locals
-        .set_item("inverted_weight_matrix", inverted_weight_matrix)
+        .set_item("inverted_weights_matrix", inverted_weights_matrix)
         .unwrap();
 }
 
